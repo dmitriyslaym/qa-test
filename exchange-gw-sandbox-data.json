@@ -249,7 +249,9 @@
             {
                 "payload": {
                     "sample": {
-                        "d": {},
+                        "d": {
+                             "trackingNumber": 0
+                        },
                         "q": "v1/exchange.market/executionReports",
                         "sid": 103
                     }
@@ -262,7 +264,9 @@
                 "methodName": "trades",
                 "payload": {
                     "sample": {
-                        "d": {},
+                        "d": {
+                            "trackingNumber": 0
+                        },
                         "q": "v1/exchange.market/trades",
                         "sid": 104
                     }
