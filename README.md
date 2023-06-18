@@ -5,7 +5,11 @@ The result should be provided in a git repository with two commands available:
 - run in headless mode (suitable for running in CI)
 
 The preparation and usage of reusable commands is highly appreciated since the usage of Admin REST API and Exchange WS Gateway is something that will be repeated in the majority of future tests.
+
 Also it is highly recommended to make sure that the test is easy to debug (leave understandable logs or use any other technics that you're aware of to simply the process of debugging the test).
+
+### Attention!
+Admin part of the test should be implemented both using REST API and UI (you can implement one test where everything in Admin functionality has been done within REST API and the other one where everything is done from UI).
 
 ## Admin part
 In order to create the resources for trading you should use admin functionality of the system.
@@ -89,4 +93,10 @@ Select "placeOrder" method within TRADING API section on the left corner. In JSO
 #### Sandbox application
 Select those methods within PRIVATE DATA API section on the left corner. No need to change anything in JSON block, just click "Send".
 
+## General recommendations
 
+It is recommended firstly to manually use Admin UI application and Sandbox application (for Trading functionality) in order to better understand the business logic and observe how the system behaves. After that the implementation of the scenario becomes a matter of technical skills.
+
+Don't hesitate to ask questions/clarifications if you stuck. Good questions will not reduce your chances during the evaluation, but the lack of understanding and the lack of interest actually will.
+
+Good luck!
