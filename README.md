@@ -97,6 +97,8 @@ Select those methods within PRIVATE DATA API section on the left corner. No need
 
 It is recommended firstly to manually use Admin UI application and Sandbox application (for Trading functionality) in order to better understand the business logic and observe how the system behaves. After that the implementation of the scenario becomes a matter of technical skills.
 
+In Reports and MarketWatch pages of Admin application you should see additional data regarding your trades. Feel free to manually check it out if it helps you.
+
 Don't hesitate to ask questions/clarifications if you stuck. Good questions will not reduce your chances during the evaluation, but the lack of understanding and the lack of interest actually will.
 
 Good luck!
