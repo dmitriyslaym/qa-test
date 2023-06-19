@@ -9,7 +9,7 @@ The preparation and usage of reusable commands is highly appreciated since the u
 Also it is highly recommended to make sure that the test is easy to debug (leave understandable logs or use any other technics that you're aware of to simply the process of debugging the test).
 
 ### Attention!
-Admin part of the test should be implemented both using REST API and UI (you can implement one test where everything in Admin functionality has been done within REST API and the other one where everything is done from UI).
+Admin part of the test should be implemented either using REST API or UI. It will be a big plus if you can implement one test where everything in Admin functionality has been done within REST API and the other one where everything is done from UI - but it's optional.
 
 ## Admin part
 In order to create the resources for trading you should use admin functionality of the system.
@@ -89,7 +89,7 @@ const signature = sha256(`"apiKey":"${apiKey}","timestamp":"${String(Date.now())
 #### Sandbox application
 Select "placeOrder" method within TRADING API section on the left corner. In JSON block use the required values of the props in the "d", click "Send".
 
-### Execution reports and Traders
+### Execution reports and Trades
 #### Sandbox application
 Select those methods within PRIVATE DATA API section on the left corner. No need to change anything in JSON block, just click "Send".
 
