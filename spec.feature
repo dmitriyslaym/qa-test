@@ -4,8 +4,8 @@ Given a calendar
 | <calendar> |UTC+01:00|          |           |smtwtfs    |        |
 And   an mp with an api key with full permissions
 And   an instrument
-| symbol   | Description | Calendar   | Status | Quote Currency| Price Precision | Quantity Precision | Quantity Increment | Min Quantity | Max Quantity | Max Depth | Calendar Auction | Min Price | Max Price | MaxOrderValue | TickSizeGroup |
-| <symbol> | Instrument  | <calendar> | Active | USD           | 6               | 2                  |                    | 1            | 100000       | 3000000   | enabled          | 1         | 100000    | 100000        |               |
+| symbol   | Description | Calendar   | Status | Quote Currency| Price Precision | Quantity Precision | Min Quantity | Max Quantity |
+| <symbol> | Instrument  | <calendar> | Active | USD           | 6               | 2                  | 1            | 100000       |
 And   a session to exchange GW is created successfully
 And   the mp subscribes to the executionReports stream
 And   the mp subscribes to the trades stream
