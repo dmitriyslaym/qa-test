@@ -273,7 +273,7 @@
                 }
             }
         ],
-        "url": "wss://exchange-gateway-master.exchange.rnd.exberry.io",
+        "url": "wss://sandbox-shared.staging.exberry-uat.io",
         "order": 1
     }
 }
