@@ -65,7 +65,8 @@ Use Create APiKey protected route (POST "/api/mps/:mpId/api-keys").
 
 ## Exchange GW (Trading) part
 GW is available with the following DNS:
-wss://exchange-gateway-master.exchange.rnd.exberry.io
+wss://sandbox-shared.staging.exberry-uat.io
+
 You can use Sandbox application with the list of methods that you will need in this scenario - there you can send requests and see all the responses.
 https://sandbox.exberry.io/?url=https://raw.githubusercontent.com/dmitriyslaym/qa-test/main/exchange-gw-sandbox-data.json
 
