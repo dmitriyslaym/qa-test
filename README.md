@@ -14,10 +14,10 @@ Admin part of the test should be implemented either using REST API or UI. It wil
 ## Admin part
 In order to create the resources for trading you should use admin functionality of the system.
 There are two ways to use it:
-- REST API (origin is https://admin-api-master.ops.rnd.exberry.io/api)
-- UI Application (https://admin.master.dev.exberry.io)
+- REST API (origin is https://admin-api-shared.staging.exberry-uat.io)
+- UI Application (https://admin.staging.exberry-uat.io)
 
-Documentation for the REST API (note, that in the examples there is a different URL origin, you should use "https://admin-api-master.ops.rnd.exberry.io/api")
+Documentation for the REST API
 https://documenter.getpostman.com/view/6229811/TzCV3jcq#intro
 
 ### Login
@@ -33,35 +33,35 @@ Credentials to access the functionality for both ways are the following:
 Pass those credentials to the Universal Login form - and you will be logged in and redirected to the main page.
 
 #### REST API
-Use Get Token route (POST "/auth/token") and then include the received JWT token in the "Authorization" header of each request to a protected route (make sure that the value of this header always starts with "Bearer " and then the token).
+Use Get Token route (POST "/api/auth/token") and then include the received JWT token in the "Authorization" header of each request to a protected route (make sure that the value of this header always starts with "Bearer " and then the token).
 
 ### Create Calendar
 #### UI application
 Go to Calendars page, click on "Add new" button on the right top part of the screen. Fill the required and submit the form - newly created calendar should appear in the table.
 
 #### REST API
-Use Create Calendar protected route (POST "/v2/calendars").
+Use Create Calendar protected route (POST "/api/v2/calendars").
 
 ### Create Instrument
 #### UI application
 Go to Instruments page, click on "Add new" button on the right top part of the screen. Fill the required inputs (in the Calendar input select the Calendar that you have created in the previous step) and submit the form - newly created instrument should appear in the table.
 
 #### REST API
-Use Create Instrument protected route (POST "/v2/instruments").
+Use Create Instrument protected route (POST "/api/v2/instruments").
 
 ### Create MP
 #### UI application
 Go to Market Participants page, click on "Add new" button on the right top part of the screen. Fill the required inputs and submit the form - newly created MP should appear in the table.
 
 #### REST API
-Use Create MP protected route (POST "/mps").
+Use Create MP protected route (POST "/api/mps").
 
 ### Create APIKey for MP
 #### UI application
 On Market Participants page, click on "Add APIKey" button of the MP that you have just created. Select all the permissions and generate APIKey. You will see APIKey and Secret - save this data since it will be hidden forever once you close the modal.
 
 #### REST API
-Use Create APiKey protected route (POST "/mps/:mpId/api-keys").
+Use Create APiKey protected route (POST "/api/mps/:mpId/api-keys").
 
 ## Exchange GW (Trading) part
 GW is available with the following DNS:
