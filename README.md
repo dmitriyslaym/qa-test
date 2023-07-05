@@ -70,6 +70,10 @@ wss://sandbox-shared.staging.exberry-uat.io
 You can use Sandbox application with the list of methods that you will need in this scenario - there you can send requests and see all the responses.
 https://sandbox.exberry.io/?url=https://raw.githubusercontent.com/dmitriyslaym/qa-test/main/exchange-gw-sandbox-data.json
 
+### Attention!
+In the implementation of the test you should NOT open Sandbox application and execute the steps from that UI app. Sandbox is provided for you only for a manual usage to get more familiar with the API. 
+In the test implementation for Exchange GW you should use directly WebSocket (some external npm package, that simplifies the usage of WS is allowed), not execute the steps from Sandbox app.
+
 ### Create session
 #### Sandbox application
 - In "Message Builder" section put the APIKey and Secret values of the APIKey that you have just generated.
