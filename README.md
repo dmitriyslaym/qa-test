@@ -82,6 +82,10 @@ In the test implementation for Exchange GW you should use directly WebSocket (so
 - Notice, that the content of JSON block in the middle was updated. Click on "Send" button there. If everything is successfull, from now on you can use any endpoints from the list while having the current WS connection opened.
 
 #### In nodeJS code
+Establish a WS connection with Exchange GW. 
+
+Generate required data for the request:
+
 ```
 import sha256 from "crypto-js/hmac-sha256";
 
@@ -90,17 +94,27 @@ const secret = 'your secret-from-api-key';
 const signature = sha256(`"apiKey":"${apiKey}","timestamp":"${String(Date.now())}"`, secret).toString()
 ```
 
+Within currently opened WS connection send the request to "createSession" endpoint.
+
 ### Place order
 #### Sandbox application
 Select "placeOrder" method within TRADING API section on the left corner. In JSON block use the required values of the props in the "d", click "Send".
+
+#### In nodeJS code
+Within currently opened WS connection send the request to "placeOrder" endpoint.
 
 ### Execution reports and Trades
 #### Sandbox application
 Select those methods within PRIVATE DATA API section on the left corner. No need to change anything in JSON block, just click "Send".
 
+#### In nodeJS code
+Within currently opened WS connection send the request to "executionReports" and "trades" endpoints.
+
 ## General recommendations
 
 It is recommended firstly to manually use Admin UI application and Sandbox application (for Trading functionality) in order to better understand the business logic and observe how the system behaves. After that the implementation of the scenario becomes a matter of technical skills.
+
+Please notice again, that in the test implementation you should NOT use Sandbox application, use WS directly (so it will be API testing, not UI testing).
 
 In Reports and MarketWatch pages of Admin application you should see additional data regarding your trades. Feel free to manually check it out if it helps you.
 
