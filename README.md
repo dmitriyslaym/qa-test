@@ -4,85 +4,66 @@ The result should be provided in a git repository with two commands available:
 - run in debug mode (when Cypress opens the browser)
 - run in headless mode (suitable for running in CI)
 
-The preparation and usage of reusable commands is highly appreciated since the usage of Admin REST API and Exchange WS Gateway is something that will be repeated in the majority of future tests.
-
-Also it is highly recommended to make sure that the test is easy to debug (leave understandable logs or use any other technics that you're aware of to simply the process of debugging the test).
-
-### Attention!
-Admin part of the test should be implemented either using REST API or UI. It will be a big plus if you can implement one test where everything in Admin functionality has been done within REST API and the other one where everything is done from UI - but it's optional.
+# Guidelines
 
 ## Admin part
-In order to create the resources for trading you should use admin functionality of the system.
-There are two ways to use it:
-- REST API (origin is https://admin-api-shared.staging.exberry-uat.io)
-- UI Application (https://admin.staging.exberry-uat.io)
+In order to create the resources for trading you should use admin functionality of the system within REST API.
 
-Documentation for the REST API
-https://documenter.getpostman.com/view/6229811/TzCV3jcq#intro
+Origin:
+https://admin-api-shared.staging.exberry-uat.io
 
-### Login
+### Authorization
 
-Credentials to access the functionality for both ways are the following:
+Credentials:
 ```
 {
   "email": "qacandidate@gmail.com",
   "password": "p#xazQI!Y%z^L34a#"
 }
 ```
-#### UI application
-Pass those credentials to the Universal Login form - and you will be logged in and redirected to the main page.
-
-#### REST API
-Use Get Token route (POST "/api/auth/token") and then include the received JWT token in the "Authorization" header of each request to a protected route (make sure that the value of this header always starts with "Bearer " and then the token).
+Use Get Token route (https://documenter.getpostman.com/view/6229811/TzCV3jcq#9e78837d-11af-4f2e-8e11-35275b86acc1) and then include the received JWT token in the "Authorization" header of each request to a protected route (make sure that the value of this header always starts with "Bearer " and then the token).
 
 ### Create Calendar
-#### UI application
-Go to Calendars page, click on "Add new" button on the right top part of the screen. Fill the required and submit the form - newly created calendar should appear in the table.
-
-#### REST API
-Use Create Calendar protected route (POST "/api/v2/calendars").
+Use Create Calendar protected route (https://documenter.getpostman.com/view/6229811/TzCV3jcq#6f1b40e0-f805-4898-af1a-ecb06dd83f0c).
 
 ### Create Instrument
-#### UI application
-Go to Instruments page, click on "Add new" button on the right top part of the screen. Fill the required inputs (in the Calendar input select the Calendar that you have created in the previous step) and submit the form - newly created instrument should appear in the table.
-
-#### REST API
-Use Create Instrument protected route (POST "/api/v2/instruments").
+Use Create Instrument protected route (https://documenter.getpostman.com/view/6229811/TzCV3jcq#30c1cfb0-4620-40a8-96c6-ba459a8f5887).
+In **calendarId** value use the id of a calendar that you created in the previous step.
 
 ### Create MP
-#### UI application
-Go to Market Participants page, click on "Add new" button on the right top part of the screen. Fill the required inputs and submit the form - newly created MP should appear in the table.
-
-#### REST API
-Use Create MP protected route (POST "/api/mps").
+Use Create MP protected route (https://documenter.getpostman.com/view/6229811/TzCV3jcq#9dcaa8cd-c893-4469-b908-f752c56176f0).
 
 ### Create APIKey for MP
-#### UI application
-On Market Participants page, click on "Add APIKey" button of the MP that you have just created. Select all the permissions and generate APIKey. You will see APIKey and Secret - save this data since it will be hidden forever once you close the modal.
-
-#### REST API
-Use Create APiKey protected route (POST "/api/mps/:mpId/api-keys").
+Use Create APiKey protected route (https://documenter.getpostman.com/view/6229811/TzCV3jcq#12e42f32-7258-4e6d-bf78-447e8cf8471d).
+In **mpId** value in URL (instead of _2087505413_ from the docs) use the **id** of an MP that you created in the previous step.
 
 ## Exchange GW (Trading) part
-GW is available with the following DNS:
-wss://sandbox-shared.staging.exberry-uat.io
+WS GW is available with the following DNS:
+
+**wss://sandbox-shared.staging.exberry-uat.io**
 
 You can use Sandbox application with the list of methods that you will need in this scenario - there you can send requests and see all the responses.
 https://sandbox.exberry.io/?url=https://raw.githubusercontent.com/dmitriyslaym/qa-test/main/exchange-gw-sandbox-data.json
 
 ### Attention!
-In the implementation of the test you should NOT open Sandbox application and execute the steps from that UI app. Sandbox is provided for you only for a manual usage to get more familiar with the API. 
+In the implementation of the test you should NOT open Sandbox application and execute the steps from that UI app. Sandbox is provided for you only for a manual usage to get more familiar with the API.
 In the test implementation for Exchange GW you should use directly WebSocket (some external npm package, that simplifies the usage of WS is allowed), not execute the steps from Sandbox app.
 
 ### Create session
-#### Sandbox application
+Take apiKey and secret values from the APIKey, that you generated for MP before.
+
+#### Sandbox application (to see the example of request)
 - In "Message Builder" section put the APIKey and Secret values of the APIKey that you have just generated.
 - In "Message Builder" section in Timestamp input click on "Refresh" icon.
 - In "Message Builder" section click on "Build" button.
 - Notice, that the content of JSON block in the middle was updated. Click on "Send" button there. If everything is successfull, from now on you can use any endpoints from the list while having the current WS connection opened.
 
-#### In nodeJS code
-Establish a WS connection with Exchange GW. 
+#### In automational test
+Establish a WS connection with Exchange GW.
+You can use any kind of external package, that simplifies working with WS. We recommend to use this one:
+https://github.com/lensesio/cypress-websocket-testing
+(command "stream").
+Make sure that through the whole test you use only one WS connection and don't accidentally open multiple ones.
 
 Generate required data for the request:
 
@@ -97,26 +78,24 @@ const signature = sha256(`"apiKey":"${apiKey}","timestamp":"${String(Date.now())
 Within currently opened WS connection send the request to "createSession" endpoint.
 
 ### Place order
-#### Sandbox application
+#### Sandbox application (to see the example of request)
 Select "placeOrder" method within TRADING API section on the left corner. In JSON block use the required values of the props in the "d", click "Send".
 
-#### In nodeJS code
+#### In automational test
 Within currently opened WS connection send the request to "placeOrder" endpoint.
 
 ### Execution reports and Trades
-#### Sandbox application
+#### Sandbox application (to see the example of request)
 Select those methods within PRIVATE DATA API section on the left corner. No need to change anything in JSON block, just click "Send".
 
-#### In nodeJS code
+#### In automational test
 Within currently opened WS connection send the request to "executionReports" and "trades" endpoints.
 
 ## General recommendations
 
-It is recommended firstly to manually use Admin UI application and Sandbox application (for Trading functionality) in order to better understand the business logic and observe how the system behaves. After that the implementation of the scenario becomes a matter of technical skills.
-
 Please notice again, that in the test implementation you should NOT use Sandbox application, use WS directly (so it will be API testing, not UI testing).
 
-In Reports and MarketWatch pages of Admin application you should see additional data regarding your trades. Feel free to manually check it out if it helps you.
+We recommend firstly to try to implement all the required steps in the test and make sure that it properly executs the logic. If after that you still have some time left - try to build reusable commands for working with Admin REST API and Exchange WS GW (since this logic will be required in a lot of tests in the system).
 
 Don't hesitate to ask questions/clarifications if you stuck. Good questions will not reduce your chances during the evaluation, but the lack of understanding and the lack of interest actually will.
 
